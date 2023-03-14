@@ -1,12 +1,37 @@
 import { LightningElement } from 'lwc';
 
 export default class TestRecordEditForm extends LightningElement {
-    objectApiName = 'Case';
-    recordId = '500HE000002QFyLYAW';
+    objectApiName = 'Account';
+    recordId = '001HE000001iOAvYAM';
 
     objFieldMap = {};// To create a property and use it to render
     readyToRender = false; // render child picklist components only when readyToRender is set to true after onLoad handler.
-    fields = ['Stage__c', 'Status'];// This is to restrict which picklist to be shown as custom picklist with searchable inputs.
+    fields = [
+        {
+            fieldApiName:'FirstName', 
+            isPicklist : false
+        },
+        {
+            fieldApiName:'LastName', 
+            isPicklist : false
+        },
+        {
+            fieldApiName:'Gender__c',
+            isPicklist : true,
+            fieldlabel : 'Gender'
+        },
+        {
+            fieldApiName:'Martial_Status__c',
+            isPicklist : true,
+            fieldlabel : 'Martial Status'
+        },
+        {
+            fieldApiName:'PersonEmail',
+            isPicklist : false
+        }
+        ];
+        // This is to restrict which picklist to be shown as custom picklist with searchable inputs.
+
     isLoaded = false;// set this to avoid recurssion.
 
     constructor() {
@@ -67,7 +92,7 @@ export default class TestRecordEditForm extends LightningElement {
 
     }
     handleSubmit(event) {
-        event.preventDefault();
+        //event.preventDefault();
         const fields = event.detail.fields;
     }
 
