@@ -1,0 +1,71 @@
+<template>
+    <div><!--class="slds-align_absolute-center">-->
+        <template if:false={bDisabled}>
+            <div class={formElementClasses}> <!--slds-form-element_horizontal slds-has-error">-->
+                <label class="slds-form-element__label" for="combobox-id-2" id="combobox-label-id-26">
+                    <template if:true={required}>
+                        <abbr class="slds-required" title="required">* </abbr>
+                    </template>
+
+                    {fieldlabel}</label>
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox_container"><!--slds-size_small">-->
+                        <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                            <div class="slds-input-has-icon slds-input-has-icon_right" role="textbox">
+                                <input type="text" id="text-input-id-47" placeholder="Type to filter…"
+                                    required={required} disabled={bDisabled} class="slds-input slds-combobox__input"
+                                    aria-labelledby="combobox-label-id-26 combobox-id-2-selected-value"
+                                    aria-describedby="error-message-id-49" aria-controls="listbox-id-2"
+                                    aria-expanded="true" aria-haspopup="listbox" onclick={handlePicklistClick}
+                                    onfocus={handlefocus} oninput={handleInput} onblur={handleblur}
+                                    value={selectedValue}><!--slds-input_faux : Removed the class to make the selected text uniform in color-->
+                                <span
+                                    class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                    <lightning-icon icon-name="utility:down" size="x-small"></lightning-icon>
+                                </span>
+                            </div>
+                            <template if:true={isExpanded}>
+                                <!-- show picklist values only when expanded.-->
+                                <div id="listbox-id-2" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                    role="listbox">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <template for:each={picklistVal} for:item="result" if:true={isExpanded}>
+                                            <li key={result.label} role="presentation" class="slds-listbox__item"
+                                                onclick={handleResultClick}>
+                                                <div id={result.label}
+                                                    class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                    role="option">
+
+                                                    <span class="slds-media__figure slds-listbox__option-icon">
+                                                        <template if:true={result.selected}>
+                                                            <lightning-icon icon-name="utility:check" size="x-small"
+                                                                alternative-text="selected"></lightning-icon>
+                                                        </template>
+                                                    </span>
+                                                    <span class="slds-media__body">
+                                                        <span class="slds-truncate"
+                                                            title={result.label}>{result.label}</span>
+                                                    </span>
+
+                                                </div>
+                                            </li>
+                                        </template>
+
+                                    </ul>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                <template if:true={bshowErrorHelpText}>
+                    <div class="slds-form-element__help" id="error-message-id-49">Complete this field.</div>
+                </template>
+                <template for:each={selectedValues} for:item="option">
+                    <lightning-pill label={option} key={option} name={option} onremove={closePill}>
+                        <lightning-icon icon-name="utility:check" alternative-text="Selection"></lightning-icon>
+                    </lightning-pill>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

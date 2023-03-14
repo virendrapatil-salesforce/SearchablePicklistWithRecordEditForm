@@ -1,0 +1,28 @@
+<template>
+    <lightning-record-edit-form object-api-name={objectApiName} record-id={recordId} onload={handleRecordLoad} onsubmit={handleSubmit}>
+
+        <template for:each={fields} for:item="item">
+            <div key={item} class="slds-col slds-size_1-of-2">
+                <!-- add lightning-input-field but make sure to hide it, so as to avoid dealing with Apex in code. We'll use this field value from LDS in child component.-->
+                <lightning-input-field id={item} field-name={item} class="slds-hide"> </lightning-input-field>
+                <!-- render only when we get value of all the fields related to object in property. Ref - handleRecordLoad in js.-->
+                <template if:true={readyToRender}>
+                    <!--<c-searchable-picklist objectname={objectApiName} fieldname={item} object-record-id={recordId} onsetfieldvalueevt={handleSetFieldValue}></c-searchable-picklist>-->
+                    <c-searchable-multi-select-picklist multiselect=true objectname={objectApiName} fieldname={item} object-record-id={recordId} onsetfieldvalueevt={handleSetFieldValue}></c-searchable-multi-select-picklist>
+                    <!-- objectname : object name for record edit form-->
+                    <!-- fieldname : picklist field we want to render as searchable picklist.-->
+                    <!-- object-record-id : not used for now, can be leverage in future.-->
+                    <!-- onsetfieldvalueevt : setfieldvalueevt fired from child component, parent LWC to handle this event, mandatory implementation.-->
+                </template>
+            </div>
+            
+            
+        </template>
+
+
+        <div class="slds-var-m-top_medium">
+            <lightning-button variant="brand" type="submit" label="Save">
+            </lightning-button>
+        </div>
+    </lightning-record-edit-form>
+</template>
